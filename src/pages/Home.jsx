@@ -1,40 +1,27 @@
+import { useState } from "react";
+import { addTicket, auth } from "../Firebase";
+
 export default function Home() {
+  const [price, setPrice] = useState("");
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    if (!auth?.currentUser?.uid) {
+      return;
+    }
+    addTicket(auth?.currentUser?.uid, Date.now(), price);
+  };
+
   return (
     <>
       <section className="bg-white dark:bg-gray-900">
         <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
-          <a
-            href="#"
-            className="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
-            role="alert"
-          >
-            <span className="text-xs bg-primary-600 rounded-full text-white px-4 py-1.5 mr-3">
-              Patch 1.7
-            </span>{" "}
-            <span className="text-sm font-medium">
-              We just released our new version!
-            </span>
-            <svg
-              className="ml-2 w-5 h-5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
-          </a>
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-            Community Sentinel
+            fine butikk
           </h1>
           <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-            Community Sentinel is a powerful platform that empowers users to
-            proactively report and combat objectionable content on various
-            social media platforms. Join us in safeguarding the online community
-            and fostering a positive digital experience for all.
+            Kjøp 1 få 2
           </p>
           <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
             <a
@@ -180,214 +167,18 @@ export default function Home() {
         </div>
       </section>
 
-      <section class="bg-white dark:bg-gray-900">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-          <h2 class="mb-8 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-            Frequently asked questions
-          </h2>
-          <div class="grid pt-8 text-left border-t border-gray-200 md:gap-16 dark:border-gray-700 md:grid-cols-2">
-            <div>
-              <div class="mb-10">
-                <h3 class="flex items-center mb-4 text-lg font-medium text-gray-900 dark:text-white">
-                  <svg
-                    class="flex-shrink-0 mr-2 w-5 h-5 text-gray-500 dark:text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  What is Community Sentinel?
-                </h3>
-                <p class="text-gray-500 dark:text-gray-400">
-                  Community Sentinel is an innovative platform that enables
-                  users to proactively report objectionable content on various
-                  social media platforms. It serves as a digital sentinel,
-                  empowering individuals to contribute to a safer and more
-                  responsible online community.
-                </p>
-              </div>
-              <div class="mb-10">
-                <h3 class="flex items-center mb-4 text-lg font-medium text-gray-900 dark:text-white">
-                  <svg
-                    class="flex-shrink-0 mr-2 w-5 h-5 text-gray-500 dark:text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  How does Community Sentinel work?
-                </h3>
-                <p class="text-gray-500 dark:text-gray-400">
-                  Community Sentinel streamlines the reporting process by
-                  providing a centralized platform for reporting objectionable
-                  videos, streams, channels, and other types of content. Users
-                  can submit reports, provide relevant details, and choose the
-                  appropriate platform and content category. We ensure that the
-                  reports are promptly delivered to the respective social media
-                  platforms for review and action.
-                </p>
-              </div>
-              <div class="mb-10">
-                <h3 class="flex items-center mb-4 text-lg font-medium text-gray-900 dark:text-white">
-                  <svg
-                    class="flex-shrink-0 mr-2 w-5 h-5 text-gray-500 dark:text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  Which social media platforms does Community Sentinel support?
-                </h3>
-                <p class="text-gray-500 dark:text-gray-400">
-                  Community Sentinel currently supports popular social media
-                  platforms such as YouTube and TikTok. We are continuously
-                  expanding our network to include more platforms, ensuring
-                  comprehensive coverage and effective reporting capabilities.
-                </p>
-              </div>
-              <div class="mb-10">
-                <h3 class="flex items-center mb-4 text-lg font-medium text-gray-900 dark:text-white">
-                  <svg
-                    class="flex-shrink-0 mr-2 w-5 h-5 text-gray-500 dark:text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  What types of content can be reported through Community
-                  Sentinel?
-                </h3>
-                <p class="text-gray-500 dark:text-gray-400">
-                  Community Sentinel allows users to report a wide range of
-                  objectionable content, including offensive or hate speech,
-                  explicit or adult material, cyberbullying, harassment, spam,
-                  and fraudulent activities. We strive to address diverse
-                  concerns and foster a responsible and inclusive online
-                  community.
-                </p>
-              </div>
-            </div>
-            <div>
-              <div class="mb-10">
-                <h3 class="flex items-center mb-4 text-lg font-medium text-gray-900 dark:text-white">
-                  <svg
-                    class="flex-shrink-0 mr-2 w-5 h-5 text-gray-500 dark:text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  Is Community Sentinel affiliated with social media platforms?
-                </h3>
-                <p class="text-gray-500 dark:text-gray-400">
-                  No, Community Sentinel is an independent platform designed to
-                  complement existing reporting mechanisms provided by social
-                  media platforms. We collaborate with these platforms by
-                  forwarding the reports we receive from users to the
-                  appropriate channels, expediting the review and resolution
-                  process.
-                </p>
-              </div>
-              <div class="mb-10">
-                <h3 class="flex items-center mb-4 text-lg font-medium text-gray-900 dark:text-white">
-                  <svg
-                    class="flex-shrink-0 mr-2 w-5 h-5 text-gray-500 dark:text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  Is Community Sentinel available worldwide?
-                </h3>
-                <p class="text-gray-500 dark:text-gray-400">
-                  Yes, Community Sentinel is accessible to users worldwide. We
-                  believe in the importance of a global community working
-                  together to make the internet a safer place. Regardless of
-                  your location, you can actively participate and contribute to
-                  online accountability.
-                </p>
-              </div>
-              <div class="mb-10">
-                <h3 class="flex items-center mb-4 text-lg font-medium text-gray-900 dark:text-white">
-                  <svg
-                    class="flex-shrink-0 mr-2 w-5 h-5 text-gray-500 dark:text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  How can I trust that my reports will be taken seriously?
-                </h3>
-                <p class="text-gray-500 dark:text-gray-400">
-                  While we cannot guarantee specific outcomes, Community
-                  Sentinel diligently ensures that your reports are delivered to
-                  the respective social media platforms for review. The
-                  platforms themselves have their own policies and processes for
-                  evaluating and addressing reported content.
-                </p>
-              </div>
-              <div class="mb-10">
-                <h3 class="flex items-center mb-4 text-lg font-medium text-gray-900 dark:text-white">
-                  <svg
-                    class="flex-shrink-0 mr-2 w-5 h-5 text-gray-500 dark:text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  Is Community Sentinel free to use?
-                </h3>
-                <p class="text-gray-500 dark:text-gray-400">
-                  Yes, Community Sentinel is completely free to use. We are
-                  committed to providing accessible community-driven
-                  accountability to all users. Our goal is to empower
-                  individuals without any financial barriers to contribute to a
-                  safer online environment.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <section>
+        <p>a ticket fine</p>
+        <form onSubmit={onSubmit}>
+          <input
+            placeholder="price"
+            onChange={(e) => {
+              setPrice(e.target.value);
+            }}
+          />
+
+          <button type="submit">Submit this fine</button>
+        </form>
       </section>
     </>
   );
