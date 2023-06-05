@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore";
-import { doc, setDoc } from "firebase/firestore";
+import { getDocs, getFirestore } from "firebase/firestore";
+import { doc, setDoc, getDoc, collection } from "firebase/firestore";
 import { v4 } from "uuid";
 
 const firebaseConfig = {
@@ -22,13 +22,39 @@ export const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-export async function addTicket(userID, timestamp, price) {
-  // Add a new document in collection "cities"
-  console.log(v4());
-  await setDoc(doc(db, "tickets", v4()), {
-    userID: userID,
-    timestamp: timestamp,
-    price: price,
+export async function addTicket(userID, timestamp, product) {
+  const productCheck = await getProduct(product);
+  console.log(productCheck);
+  if (productCheck !== undefined) {
+    await setDoc(doc(db, "tickets", v4()), {
+      userID: userID,
+      timestamp: timestamp,
+      product: product,
+    });
+  } else {
+    console.log("product not found");
+  }
+}
+
+export async function getProduct(productName) {
+  const col = doc(db, "products", productName);
+
+  return await getDoc(col).then(async (e) => {
+    const exist = e.exists();
+    console.log(exist);
+    if (exist) {
+      return { price: e.get("price"), name: e.get("name") };
+    } else {
+      return undefined;
+    }
+  });
+}
+
+export async function getAllProducts() {
+  const col = collection(db, "products");
+
+  return await getDocs(col).then((e) => {
+    console.log(e);
   });
 }
 

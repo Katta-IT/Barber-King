@@ -10,6 +10,7 @@ import {
 import RouteLayout from "./layout/RouterLayout.jsx";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
+import Shop from "./pages/Shop.jsx";
 
 import NotFound from "./pages/NotFound.jsx";
 
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
     <Route>
       <Route path="/" element={<RouteLayout />}>
         <Route index element={<Home />} />
+        <Route path="shop" element={<Shop />} />
         <Route path="login" element={<Login />} />
 
         <Route path="*" element={<NotFound />}></Route>
