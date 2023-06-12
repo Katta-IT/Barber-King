@@ -39,7 +39,8 @@ export default function Login() {
               src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
               alt="logo"
             />
-            svart butikk :D 🤬
+            Barber King 🤬
+            <img src="public/ezgif-5-956b9328f2_1_1.gif" alt="Computer man" />
           </a>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full bg-white rounded-lg shadow dark:border md:mt-0 max-w-5xl xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
